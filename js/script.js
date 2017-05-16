@@ -13,19 +13,22 @@ function loadData() {
 
     // load streetview
 
-    // YOUR CODE GOES HERE!
     //Create location string to feed to streetview API
-    var loc = "http://maps.googleapis.com/maps/api/streetview?size=600x300&location=" +
-        $('#street').val() + $('#city').val();
+    var preLoc = 'http://maps.googleapis.com/maps/api/streetview?size=600x300&location=';
+    var address = $('#street').val() + ', ' + $('#city').val();
 
+    //If the image element does not already exist then create
+    //and configure it
+    if($('.bgimg').length === 0) {
+        var bgPic = document.createElement('img');
+        bgPic.classList.add('bgimg');
+        //Append the streetview image to the DOM
+        document.body.appendChild(bgPic);
+    };
 
-    //Create and configure the image element
-    var bgPic = document.createElement("img");
-    bgPic.src = loc;
-    bgPic.classList.add('bgimg');
-
-    //Append the streetview image to the DOM
-    document.body.appendChild(bgPic);
+    //Add or update image source value & greeting
+    $('.bgimg').attr('src', preLoc + address);
+    $greeting.text("So, you want to live at " + address + '?');
 
     return false;
 };
