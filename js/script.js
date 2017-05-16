@@ -14,6 +14,18 @@ function loadData() {
     // load streetview
 
     // YOUR CODE GOES HERE!
+    //Create location string to feed to streetview API
+    var loc = "http://maps.googleapis.com/maps/api/streetview?size=600x300&location=" +
+        $('#street').val() + $('#city').val();
+
+
+    //Create and configure the image element
+    var bgPic = document.createElement("img");
+    bgPic.src = loc;
+    bgPic.classList.add('bgimg');
+
+    //Append the streetview image to the DOM
+    document.body.appendChild(bgPic);
 
     return false;
 };
