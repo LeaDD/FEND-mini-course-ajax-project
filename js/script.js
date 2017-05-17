@@ -11,7 +11,7 @@ function loadData() {
     $wikiElem.text("");
     $nytElem.text("");
 
-    //STREETVIEW
+    //STREETVIEW*****************************************
 
     //Create location string to feed to streetview API
     var preLoc = 'http://maps.googleapis.com/maps/api/streetview?size=600x300&location=';
@@ -30,7 +30,7 @@ function loadData() {
     $('.bgimg').attr('src', preLoc + address);
     $greeting.text("So, you want to live at " + address + '?');
 
-    //NYT
+    //NYT*************************************************
 
     //Update section header with user's chosen city
     $nytHeaderElem.text('New York Times Articles about ' + $('#city').val());
@@ -57,7 +57,7 @@ function loadData() {
                 article.classList.add('article');
 
                 //Append to the unordered list node
-                document.getElementById('nytimes-articles').appendChild(article);
+                $nytElem.append(article);
             }
         });
 
