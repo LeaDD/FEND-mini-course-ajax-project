@@ -36,10 +36,12 @@ function loadData() {
     $nytHeaderElem.text('New York Times Articles about ' + $('#city').val());
 
     //Create URL to use for NYT API
-    var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
-    url += '?' + $.param({
+    var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
+    url += address + '&' + $.param({
       'api-key': "42ad017c5fbe42dd9aa999eee93786bd"
     });
+
+    console.log(url);
 
     //Fire AJAX request for articles
     $.getJSON(url)
@@ -53,7 +55,9 @@ function loadData() {
                 var article = document.createElement('li');
 
                 //Configure each article with class and content from array
-                article.innerHTML = articles[i].lead_paragraph;
+                article.innerHTML = '<a href ="'+ articles[i].web_url+'">'
+                    +articles[i].headline.main+'</a>'+'<p>'+articles[i].snippet
+                    +'</p>';
                 article.classList.add('article');
 
                 //Append to the unordered list node
