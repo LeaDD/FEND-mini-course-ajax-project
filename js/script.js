@@ -41,11 +41,8 @@ function loadData() {
       'api-key': "42ad017c5fbe42dd9aa999eee93786bd"
     });
 
-    console.log(url);
-
     //Fire AJAX request for articles
-    $.getJSON(url)
-        .done(function(data) {
+    $.getJSON(url, function(data) {
             //Variable to hold the response location for articles
             var articles = data.response.docs;
 
@@ -63,6 +60,8 @@ function loadData() {
                 //Append to the unordered list node
                 $nytElem.append(article);
             }
+        }).fail(function(err) {
+            $nytHeaderElem.text('New York Times Articles could not be loaded');
         });
 
 
