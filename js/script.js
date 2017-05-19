@@ -67,8 +67,8 @@ function loadData() {
     //WIKIPEDIA*******************************************
 
     var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=query&titles='
-        + $('#street').val() + $('#city').val()
-        + '&prop=revisions&rvprop=content&rvsection=0&format=json';
+        + $('#city').val()
+        + '&redirects&prop=revisions&rvprop=content&rvsection=0&format=json';
 
     console.log(wikiUrl);
 
@@ -76,7 +76,8 @@ function loadData() {
         url: wikiUrl,
         dataType: 'jsonp',
         success: function(data) {
-            console.log(data.query.pages);
+            //for(var i = 0;i<data.query)
+            console.log(data.query);
         }
     });
 
