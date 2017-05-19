@@ -36,13 +36,13 @@ function loadData() {
     $nytHeaderElem.text('New York Times Articles about ' + $('#city').val());
 
     //Create URL to use for NYT API
-    var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
-    url += address + '&' + $.param({
+    var nytUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
+    nytUrl += address + '&' + $.param({
       'api-key': "42ad017c5fbe42dd9aa999eee93786bd"
     });
 
     //Fire AJAX request for articles
-    $.getJSON(url, function(data) {
+    $.getJSON(nytUrl, function(data) {
             //Variable to hold the response location for articles
             var articles = data.response.docs;
 
@@ -63,6 +63,22 @@ function loadData() {
         }).fail(function(err) {
             $nytHeaderElem.text('New York Times Articles could not be loaded');
         });
+
+    //WIKIPEDIA*******************************************
+
+    var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=query&titles='
+        + $('#street').val() + $('#city').val()
+        + '&prop=revisions&rvprop=content&rvsection=0&format=json';
+
+    console.log(wikiUrl);
+
+    $.ajax({
+        url: wikiUrl,
+        dataType: 'jsonp',
+        success: function(data) {
+            console.log(data.query.pages);
+        }
+    });
 
 
     return false;
