@@ -66,32 +66,39 @@ function loadData() {
 
     //WIKIPEDIA*******************************************
 
-    //Create URL to use for Wikipedia API
+    //Create URL to use for Wikipedia API - This version is from the instructor
+    //review and the results are much easier to work with.
+    var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='
+        + $('#city').val()
+        + '&format=json&callback=wikiCallback'; //<-still works without this last
+                                //parameter...not sure what it is for.
+
+    /*THIS WAS MY ORIGINAL STRING
     var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=query&titles='
         + $('#city').val()
         + '&redirects&prop=info&rvprop=content&rvsection=0&format=json&inprop=url';
+    */
 
     //Fire AJAX request for pages
     $.ajax({
         url: wikiUrl,
         dataType: 'jsonp'
     })
-    .done(
-        function(data) {
+    .done(function(data) {
             //Variable to hold response object for pages
-            var pagesObj = data.query.pages;
+            var pagesObj = data[1];
 
-            //Iterate over the object and for each pageid (those are the keys
-            //in the object) create a list node with the pages URL and title
-            for(prop in pagesObj) {
-                var wiki = document.createElement('li');
+            //Iterate over the first array which has the article titles returned
+            //from the search then create a list node with the pages URL and title
+            for(var i = 0;pagesObj.length > i; i++) {
+                //Get the page title
+                var pageTitle = pagesObj[i];
+                //And it's URL
+                var url = 'https://en.wikipedia.org/wiki/' + pageTitle;
 
-                //Configure the list item
-                wiki.innerHTML = '<a href="' + pagesObj[prop].fullurl + '">'
-                    + pagesObj[prop].title + '</a>';
-
-                //Append to the unodered list node
-                $wikiElem.append(wiki);
+                //Configure unordered list items append to the unodered list node
+                $wikiElem.append('<li><a href="' + url + '">' + pageTitle
+                    + '</a></li>');
             }
     })
     .fail(function(err) {
