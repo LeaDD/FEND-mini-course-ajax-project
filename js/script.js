@@ -62,7 +62,7 @@ function loadData() {
             }
         }).fail(function(err) {
             $nytHeaderElem.text('New York Times Articles could not be loaded');
-        });
+    });
 
     //WIKIPEDIA*******************************************
 
@@ -92,7 +92,7 @@ function loadData() {
                 wiki.innerHTML = '<a href="' + pagesObj[prop].fullurl + '">'
                     + pagesObj[prop].title + '</a>';
 
-                    //Append to the unodered list node
+                //Append to the unodered list node
                 $wikiElem.append(wiki);
             }
         }
