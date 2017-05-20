@@ -66,18 +66,35 @@ function loadData() {
 
     //WIKIPEDIA*******************************************
 
+    //Create URL to use for Wikipedia API
     var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=query&titles='
         + $('#city').val()
-        + '&redirects&prop=revisions&rvprop=content&rvsection=0&format=json';
+        + '&redirects&prop=info&rvprop=content&rvsection=0&format=json&inprop=url';
 
-    console.log(wikiUrl);
-
+    //Fire AJAX request for pages
     $.ajax({
         url: wikiUrl,
         dataType: 'jsonp',
         success: function(data) {
-            //for(var i = 0;i<data.query)
-            console.log(data.query);
+            //Variable to hold response object for pages
+            var pagesObj = data.query.pages;
+
+            //console.log(pagesObj);
+            //console.log(Object.keys(pagesObj));
+
+            //Iterate over the object and for each pageid (those are the keys
+            //in the object) create a list node with the pages URL and title
+            //var pageIds = [];
+            for(prop in pagesObj) {
+                var wiki = document.createElement('li');
+
+                //Configure the list item
+                wiki.innerHTML = '<a href="' + pagesObj[prop].fullurl + '">'
+                    + pagesObj[prop].title + '</a>';
+
+                    //Append to the unodered list node
+                $wikiElem.append(wiki);
+            }
         }
     });
 
