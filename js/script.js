@@ -74,17 +74,15 @@ function loadData() {
     //Fire AJAX request for pages
     $.ajax({
         url: wikiUrl,
-        dataType: 'jsonp',
-        success: function(data) {
+        dataType: 'jsonp'
+    })
+    .done(
+        function(data) {
             //Variable to hold response object for pages
             var pagesObj = data.query.pages;
 
-            //console.log(pagesObj);
-            //console.log(Object.keys(pagesObj));
-
             //Iterate over the object and for each pageid (those are the keys
             //in the object) create a list node with the pages URL and title
-            //var pageIds = [];
             for(prop in pagesObj) {
                 var wiki = document.createElement('li');
 
@@ -95,7 +93,9 @@ function loadData() {
                 //Append to the unodered list node
                 $wikiElem.append(wiki);
             }
-        }
+    })
+    .fail(function(err) {
+        throw err;
     });
 
     return false;
