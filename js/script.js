@@ -98,7 +98,6 @@ function loadData() {
         }
     });
 
-
     return false;
 };
 
